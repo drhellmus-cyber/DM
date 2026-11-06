@@ -15,7 +15,7 @@ namespace patient.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.12");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.13");
 
             modelBuilder.Entity("patient.Consultation", b =>
                 {
@@ -23,37 +23,80 @@ namespace patient.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ATCD")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BilanBiologique")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BilanRadiologique")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CB")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CRO")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Certificat")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cou")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateConsultation")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ExamenCmpl")
+                    b.Property<DateTime?>("DateRDV")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Dgc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Face")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Intervention")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("JustiArret")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MotifDeConsultation")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Naso")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Neurologique")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Observation")
+                    b.Property<string>("OTO")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Orientation")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OrientationMotif")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("RA")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SignesFlle")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Vestibulaire")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -62,6 +105,30 @@ namespace patient.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Consultations");
+                });
+
+            modelBuilder.Entity("patient.ExamenClinique", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategorieExamen")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Lateralite")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NomExamen")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Pathologique")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExamenCliniques");
                 });
 
             modelBuilder.Entity("patient.Medicament", b =>
@@ -133,6 +200,10 @@ namespace patient.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Forme")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Frequence")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -156,6 +227,62 @@ namespace patient.Migrations
                     b.ToTable("OrdonnanceDetails");
                 });
 
+            modelBuilder.Entity("patient.OrdonnanceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NomModele")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrdonnanceTypes");
+                });
+
+            modelBuilder.Entity("patient.OrdonnanceTypeDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Dosage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Duree")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Forme")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Frequence")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MedicamentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrdonnanceTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Rq")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedicamentId");
+
+                    b.HasIndex("OrdonnanceTypeId");
+
+                    b.ToTable("OrdonnanceTypeDetails");
+                });
+
             modelBuilder.Entity("patient.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -165,13 +292,48 @@ namespace patient.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Genre")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Prenom")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Statut")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("patient.SigneOrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Categorie")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Intensite")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Presence")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SignesOrl");
                 });
 
             modelBuilder.Entity("patient.Consultation", b =>
@@ -215,6 +377,25 @@ namespace patient.Migrations
                     b.Navigation("Ordonnance");
                 });
 
+            modelBuilder.Entity("patient.OrdonnanceTypeDetail", b =>
+                {
+                    b.HasOne("patient.Medicament", "Medicament")
+                        .WithMany()
+                        .HasForeignKey("MedicamentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("patient.OrdonnanceType", "OrdonnanceType")
+                        .WithMany("Details")
+                        .HasForeignKey("OrdonnanceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medicament");
+
+                    b.Navigation("OrdonnanceType");
+                });
+
             modelBuilder.Entity("patient.Consultation", b =>
                 {
                     b.Navigation("Ordonnance")
@@ -224,6 +405,11 @@ namespace patient.Migrations
             modelBuilder.Entity("patient.Ordonnance", b =>
                 {
                     b.Navigation("OrdonnanceDetails");
+                });
+
+            modelBuilder.Entity("patient.OrdonnanceType", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("patient.Patient", b =>

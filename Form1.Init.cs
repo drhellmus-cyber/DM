@@ -35,7 +35,7 @@ namespace patient
             comboDiagnostic.DataSource = diagnostics;
 
             string vtime = DateTime.Now.ToString("yyyy-MM-dd");
-            tbxDateConsult.Text = vtime;
+            txtDateConsult.Text = vtime;
         }
     }
 }
